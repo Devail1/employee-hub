@@ -1,20 +1,17 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-const { createClient } = require("@supabase/supabase-js");
+const { PrismaClient } = require("@prisma/client");
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const prisma = new PrismaClient();
 
-app.use(cors({ origin: "http://localhost:3000" }));
-app.use(bodyParser.json());
+app.use(cors({ origin: process.env.DOMAIN_URL }));
+app.use(express.json());
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
-require("./routes/employees")(app, supabase);
+require("./routes/employees")(app, prisma);
