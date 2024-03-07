@@ -10,15 +10,8 @@ import AddIcon from "./icons/AddIcon";
 import Spinner from "./ui/Spinner";
 
 const EmployeesList = () => {
-  const {
-    data: employees,
-    isLoading,
-    error,
-    refetch,
-  } = useGetAllEmployeesQuery();
-  console.log("employees", employees);
-  console.log("error", error);
-  const [createEmployee] = useCreateEmployeeMutation(); // Destructure the mutation and its functions
+  const { data: employees, isLoading, error } = useGetAllEmployeesQuery();
+  const [createEmployee] = useCreateEmployeeMutation();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,7 +31,6 @@ const EmployeesList = () => {
     try {
       await createEmployee(data);
       console.log("Employee created successfully!");
-      refetch();
       closeModal();
     } catch (err) {
       console.error("Error creating employee:", err);

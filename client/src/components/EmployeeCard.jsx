@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { employeeStatuses } from "../constants";
 import {
   useDeleteEmployeeMutation,
-  useGetAllEmployeesQuery,
   useUpdateEmployeeMutation,
 } from "../store/services/employees";
 import Modal from "./ui/Modal";
@@ -12,7 +11,6 @@ import AvatarImage from "../assets/avatar.png";
 import EditIcon from "./icons/EditIcon";
 
 const EmployeeCard = ({ id, username, status, imgUrl }) => {
-  const { refetch } = useGetAllEmployeesQuery();
   const [updateEmployee] = useUpdateEmployeeMutation();
   const [deleteEmployee] = useDeleteEmployeeMutation();
 
@@ -24,7 +22,6 @@ const EmployeeCard = ({ id, username, status, imgUrl }) => {
     try {
       await updateEmployee({ id, data });
       closeModal();
-      refetch();
     } catch (err) {
       console.error("Error updating employee:", err);
     }
@@ -34,7 +31,6 @@ const EmployeeCard = ({ id, username, status, imgUrl }) => {
     try {
       await deleteEmployee(employeeId);
       closeModal();
-      refetch();
       console.log("Employee deleted successfully!");
     } catch (err) {
       console.error("Error deleting employee:", err);
