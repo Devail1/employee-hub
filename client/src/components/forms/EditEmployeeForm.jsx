@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import { employeeStatuses } from "../../constants";
+
+EditEmployeeForm.propTypes = {
+  initialValues: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    username: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+  }).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
 export default function EditEmployeeForm({ initialValues, onSubmit, onDelete }) {
   const [username, setUsername] = useState(initialValues.username);
-  const [status, setStatus] = useState(initialValues.status); // Default status
+  const [status, setStatus] = useState(initialValues.status);
 
   const handleEditEmployee = (e) => {
     e.preventDefault();

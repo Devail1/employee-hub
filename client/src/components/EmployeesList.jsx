@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import {
   useCreateEmployeeMutation,
   useGetAllEmployeesQuery,
 } from "../store/services/employees";
 import EmployeeCard from "./EmployeeCard";
 import Modal from "./ui/Modal";
-import Spinner from "./ui/Spinner";
 import AddEmployeeForm from "./forms/AddEmployeeForm";
 import AddIcon from "./icons/AddIcon";
 
-export default function EmployeesList() {
-  const { data, isLoading, error, refetch } = useGetAllEmployeesQuery();
+EmployeesList.propTypes = {
+  employees: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired,
+      status: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
+
+export default function EmployeesList({ employees }) {
+  const { refetch } = useGetAllEmployeesQuery();
   const [createEmployee] = useCreateEmployeeMutation(); // Destructure the mutation and its functions
 
   const [isOpen, setIsOpen] = useState(false);
-
-  if (isLoading) return <Spinner />;
-  if (error) return <p>Error fetching employees: {error.message}</p>;
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -40,7 +47,7 @@ export default function EmployeesList() {
         </Modal>
       )}
       <button
-        className="max-w-xs mb-4 group flex items-center justify-between gap-4 rounded-lg border border-current px-5 py-3 text-indigo-600 transition-colors hover:bg-indigo-600 focus:outline-none focus:ring active:bg-indigo-500"
+        className="max-w-xs mb-8 group flex items-center justify-between gap-4 rounded-lg border border-current px-5 py-3 text-indigo-600 transition-colors hover:bg-indigo-600 focus:outline-none focus:ring active:bg-indigo-500 "
         onClick={openModal}
       >
         <span className="font-medium transition-colors group-hover:text-white">
@@ -52,7 +59,7 @@ export default function EmployeesList() {
         </span>
       </button>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.map((employee) => (
+        {employees?.map((employee) => (
           <EmployeeCard
             key={employee.id}
             id={employee.id}

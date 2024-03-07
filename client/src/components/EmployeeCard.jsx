@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import { employeeStatuses } from "../constants";
 import {
   useDeleteEmployeeMutation,
@@ -9,6 +10,13 @@ import Modal from "./ui/Modal";
 import EditEmployeeForm from "./forms/EditEmployeeForm";
 import AvatarImage from "../assets/avatar.png";
 import EditIcon from "./icons/EditIcon";
+
+EmployeeCard.propTypes = {
+  username: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+};
+
 export default function EmployeeCard({ username, status, id }) {
   const { refetch } = useGetAllEmployeesQuery();
   const [updateEmployee] = useUpdateEmployeeMutation();
