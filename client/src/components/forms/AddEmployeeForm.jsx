@@ -2,15 +2,24 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { employeeStatuses } from "../../constants";
 import Button from "../ui/Button";
+import { useCreateEmployeeMutation } from "../../store/services/employees";
 
-const AddEmployeeForm = ({ onSubmit, isLoading }) => {
+const AddEmployeeForm = ({ onSubmit }) => {
+  const [createEmployee, { isLoading }] = useCreateEmployeeMutation();
+
   const [username, setUsername] = useState("");
   const [status, setStatus] = useState("working"); // Default status
 
-  const handleAddEmployee = (e) => {
+  const handleAddEmployee = async (e) => {
     e.preventDefault();
     const data = { username, status };
-    onSubmit(data);
+    try {
+      await createEmployee(data);
+      console.log("Employee created successfully!");
+    } catch (err) {
+      console.error("Error creating employee:", err);
+    }
+    if (onSubmit) onSubmit();
   };
 
   return (
@@ -78,8 +87,7 @@ const AddEmployeeForm = ({ onSubmit, isLoading }) => {
 };
 
 AddEmployeeForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
+  onSubmit: PropTypes.func,
 };
 
 export default AddEmployeeForm;

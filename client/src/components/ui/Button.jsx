@@ -18,7 +18,7 @@ const Button = ({
       disabled={isLoading}
     >
       <div className="flex items-center gap-2 relative w-full">
-        {isLoading && <Spinner className="absolute left-0" />}
+        {isLoading && <Spinner />}
         {label && (
           <span className="font-medium transition-colors group-hover:text-white ">
             {label}

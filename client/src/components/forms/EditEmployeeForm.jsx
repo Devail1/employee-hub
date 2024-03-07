@@ -2,28 +2,50 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { employeeStatuses } from "../../constants";
 import Button from "../ui/Button";
+import {
+  useDeleteEmployeeMutation,
+  useUpdateEmployeeMutation,
+} from "../../store/services/employees";
 
-const EditEmployeeForm = ({
-  initialValues,
-  onSubmit,
-  onDelete,
-  isUpdateLoading,
-  isDeleteLoading,
-}) => {
-  const [username, setUsername] = useState(initialValues.username);
-  const [status, setStatus] = useState(initialValues.status);
+const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
+  const [updateEmployee, { isLoading: isUpdateLoading }] =
+    useUpdateEmployeeMutation();
+  const [deleteEmployee, { isLoading: isDeleteLoading }] =
+    useDeleteEmployeeMutation();
 
-  const handleEditEmployee = (e) => {
+  const [username, setUsername] = useState(employee.username);
+  const [status, setStatus] = useState(employee.status);
+
+  const handleEditEmployee = async (e) => {
     e.preventDefault();
     const data = { username, status };
-    onSubmit(data);
+    try {
+      await updateEmployee({ id: employee.id, data });
+    } catch (err) {
+      console.error("Error updating employee:", err);
+    }
+
+    if (onSubmit) onSubmit();
+  };
+
+  const handleDeleteEmployee = async (employeeId) => {
+    try {
+      await deleteEmployee(employeeId);
+      console.log("Employee deleted successfully!");
+    } catch (err) {
+      console.error("Error deleting employee:", err);
+    }
+
+    if (onSubmit) onSubmit();
   };
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 pt-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg text-center">
         <h1 className="text-2xl font-bold sm:text-3xl">Edit Employee</h1>
-        <p className="mt-4 text-gray-500">Edit an employee from the list</p>
+        <p className="mt-4 text-gray-500">
+          Edit an employee or remove it from the list
+        </p>
       </div>
 
       <form
@@ -74,7 +96,7 @@ const EditEmployeeForm = ({
           <Button
             className="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 "
             label="Delete"
-            onClick={() => onDelete(initialValues.id)}
+            onClick={() => handleDeleteEmployee(employee.id)}
             isLoading={isDeleteLoading}
           />
           <Button
@@ -96,10 +118,7 @@ EditEmployeeForm.propTypes = {
     status: PropTypes.string.isRequired,
     imgUrl: PropTypes.string,
   }).isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  isUpdateLoading: PropTypes.bool,
-  isDeleteLoading: PropTypes.bool,
+  onSubmit: PropTypes.func,
 };
 
 export default EditEmployeeForm;

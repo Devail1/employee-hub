@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const Spinner = () => {
+const Spinner = ({ sizeClass = "w-4 h-4" }) => {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className="w-4 h-4 text-gray-200 animate-spin fill-blue-600"
+        className={`${sizeClass} text-gray-200 animate-spin fill-blue-600`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -22,6 +23,10 @@ const Spinner = () => {
       <span className="sr-only">Loading...</span>
     </div>
   );
+};
+
+Spinner.propTypes = {
+  sizeClass: PropTypes.string,
 };
 
 export default Spinner;

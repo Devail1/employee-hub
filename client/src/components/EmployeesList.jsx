@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  useCreateEmployeeMutation,
-  useGetAllEmployeesQuery,
-} from "../store/services/employees";
+import { useGetAllEmployeesQuery } from "../store/services/employees";
 import EmployeeCard from "./EmployeeCard";
 import Modal from "./ui/Modal";
 import AddEmployeeForm from "./forms/AddEmployeeForm";
@@ -12,38 +9,26 @@ import Button from "./ui/Button";
 
 const EmployeesList = () => {
   const { data: employees, isLoading, error } = useGetAllEmployeesQuery();
-  const [createEmployee, { isLoading: isCreateLoading }] =
-    useCreateEmployeeMutation();
 
   const [isOpen, setIsOpen] = useState(false);
 
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-screen">
-        <Spinner />
+        <Spinner sizeClass="w-12 h-12" />
       </div>
     );
 
-  if (error) return <p>{error.data?.message}</p>;
+  if (error) return <p>{error.data?.message || "Something went wrong"}</p>;
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
-
-  const confirmAction = async (data) => {
-    try {
-      await createEmployee(data);
-      console.log("Employee created successfully!");
-      closeModal();
-    } catch (err) {
-      console.error("Error creating employee:", err);
-    }
-  };
 
   return (
     <div>
       {isOpen && (
         <Modal onClose={closeModal}>
-          <AddEmployeeForm onSubmit={confirmAction} isLoading={isCreateLoading} />
+          <AddEmployeeForm onSubmit={closeModal} />
         </Modal>
       )}
       <Button
