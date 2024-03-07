@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { employeeStatuses } from "../../constants";
+import Button from "../ui/Button";
 
-const EditEmployeeForm = ({ initialValues, onSubmit, onDelete }) => {
+const EditEmployeeForm = ({
+  initialValues,
+  onSubmit,
+  onDelete,
+  isUpdateLoading,
+  isDeleteLoading,
+}) => {
   const [username, setUsername] = useState(initialValues.username);
   const [status, setStatus] = useState(initialValues.status);
 
@@ -64,19 +71,18 @@ const EditEmployeeForm = ({ initialValues, onSubmit, onDelete }) => {
           </select>
         </div>
         <div className="flex justify-end items-center py-4 border-t gap-2 border-gray-200">
-          <button
-            type="button"
+          <Button
+            className="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 "
+            label="Delete"
             onClick={() => onDelete(initialValues.id)}
-            className="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 "
-          >
-            Delete
-          </button>
-          <button
+            isLoading={isDeleteLoading}
+          />
+          <Button
+            className="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5"
             type="submit"
-            className="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
-          >
-            Save Changes
-          </button>
+            label="Save Changes"
+            isLoading={isUpdateLoading}
+          />
         </div>
       </form>
     </div>
@@ -92,6 +98,8 @@ EditEmployeeForm.propTypes = {
   }).isRequired,
   onSubmit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  isUpdateLoading: PropTypes.bool,
+  isDeleteLoading: PropTypes.bool,
 };
 
 export default EditEmployeeForm;

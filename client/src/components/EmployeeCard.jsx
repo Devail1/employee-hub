@@ -9,10 +9,13 @@ import Modal from "./ui/Modal";
 import EditEmployeeForm from "./forms/EditEmployeeForm";
 import AvatarImage from "../assets/avatar.png";
 import EditIcon from "./icons/EditIcon";
+import Button from "./ui/Button";
 
 const EmployeeCard = ({ id, username, status, imgUrl }) => {
-  const [updateEmployee] = useUpdateEmployeeMutation();
-  const [deleteEmployee] = useDeleteEmployeeMutation();
+  const [updateEmployee, { isLoading: isUpdateLoading }] =
+    useUpdateEmployeeMutation();
+  const [deleteEmployee, { isLoading: isDeleteLoading }] =
+    useDeleteEmployeeMutation();
 
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
@@ -40,11 +43,13 @@ const EmployeeCard = ({ id, username, status, imgUrl }) => {
   return (
     <>
       {isOpen && (
-        <Modal isOpen={isOpen} onClose={closeModal}>
+        <Modal onClose={closeModal}>
           <EditEmployeeForm
             initialValues={{ id, username, status, imgUrl }}
             onDelete={deleteAction}
             onSubmit={confirmAction}
+            isUpdateLoading={isUpdateLoading}
+            isDeleteLoading={isDeleteLoading}
           />
         </Modal>
       )}
@@ -66,13 +71,11 @@ const EmployeeCard = ({ id, username, status, imgUrl }) => {
             </ul>
           </div>
 
-          <button
+          <Button
             className="inline-block ml-auto rounded-full border border-indigo-600 p-3 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
             onClick={openModal}
-          >
-            <span className="sr-only"> Edit </span>
-            <EditIcon />
-          </button>
+            icon={<EditIcon />}
+          />
         </div>
       </article>
     </>

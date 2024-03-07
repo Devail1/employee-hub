@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { employeeStatuses } from "../../constants";
+import Button from "../ui/Button";
 
-const AddEmployeeForm = ({ onSubmit }) => {
+const AddEmployeeForm = ({ onSubmit, isLoading }) => {
   const [username, setUsername] = useState("");
   const [status, setStatus] = useState("working"); // Default status
 
@@ -64,12 +65,12 @@ const AddEmployeeForm = ({ onSubmit }) => {
           </select>
         </div>
         <div className="flex justify-end items-center py-4 border-t border-gray-200">
-          <button
+          <Button
+            className="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+            label="Confirm"
             type="submit"
-            className="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 "
-          >
-            Confirm
-          </button>
+            isLoading={isLoading}
+          />
         </div>
       </form>
     </div>
@@ -78,6 +79,7 @@ const AddEmployeeForm = ({ onSubmit }) => {
 
 AddEmployeeForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 export default AddEmployeeForm;

@@ -2,13 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import CloseIcon from "../icons/CloseIcon";
 
-const Modal = ({ children, isOpen, onClose }) => {
+const Modal = ({ children, onClose }) => {
   return (
-    <div
-      className={`fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity ${
-        isOpen ? "opacity-100" : "opacity-0"
-      }`}
-    >
+    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity">
       <div className="flex items-center justify-center min-h-screen py-4 px-4">
         <div className="w-full max-w-sm bg-white rounded-lg overflow-hidden shadow-xl">
           <div className="relative">
@@ -30,7 +26,6 @@ const Modal = ({ children, isOpen, onClose }) => {
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
-  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
