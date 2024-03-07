@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useState } from "react";
 import {
   useCreateEmployeeMutation,
@@ -8,22 +7,29 @@ import EmployeeCard from "./EmployeeCard";
 import Modal from "./ui/Modal";
 import AddEmployeeForm from "./forms/AddEmployeeForm";
 import AddIcon from "./icons/AddIcon";
+import Spinner from "./ui/Spinner";
 
-EmployeesList.propTypes = {
-  employees: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      username: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};
-
-export default function EmployeesList({ employees }) {
-  const { refetch } = useGetAllEmployeesQuery();
+const EmployeesList = () => {
+  const {
+    data: employees,
+    isLoading,
+    error,
+    refetch,
+  } = useGetAllEmployeesQuery();
+  console.log("employees", employees);
+  console.log("error", error);
   const [createEmployee] = useCreateEmployeeMutation(); // Destructure the mutation and its functions
 
   const [isOpen, setIsOpen] = useState(false);
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
+      </div>
+    );
+
+  if (error) return <p>{error.data?.message}</p>;
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -60,14 +66,11 @@ export default function EmployeesList({ employees }) {
       </button>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {employees?.map((employee) => (
-          <EmployeeCard
-            key={employee.id}
-            id={employee.id}
-            username={employee.username}
-            status={employee.status}
-          />
+          <EmployeeCard key={employee.id} {...employee} />
         ))}
       </div>
     </div>
   );
-}
+};
+
+export default EmployeesList;

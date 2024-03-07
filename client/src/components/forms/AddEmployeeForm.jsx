@@ -1,12 +1,8 @@
-import PropTypes from "prop-types";
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { employeeStatuses } from "../../constants";
 
-AddEmployeeForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-export default function AddEmployeeForm({ onSubmit }) {
+const AddEmployeeForm = ({ onSubmit }) => {
   const [username, setUsername] = useState("");
   const [status, setStatus] = useState("working"); // Default status
 
@@ -78,4 +74,10 @@ export default function AddEmployeeForm({ onSubmit }) {
       </form>
     </div>
   );
-}
+};
+
+AddEmployeeForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+export default AddEmployeeForm;

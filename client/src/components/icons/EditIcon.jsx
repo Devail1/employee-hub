@@ -1,4 +1,6 @@
-export default function EditIcon() {
+import React from "react";
+
+const EditIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,4 +17,6 @@ export default function EditIcon() {
       <path d="m15 5 4 4" />
     </svg>
   );
-}
+};
+
+export default EditIcon;

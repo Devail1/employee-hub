@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Spinner() {
+const Spinner = () => {
   return (
     <div role="status">
       <svg
@@ -22,4 +22,6 @@ export default function Spinner() {
       <span className="sr-only">Loading...</span>
     </div>
   );
-}
+};
+
+export default Spinner;

@@ -1,4 +1,6 @@
-export default function AddIcon() {
+import React from "react";
+
+const AddIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,4 +17,6 @@ export default function AddIcon() {
       <path d="M12 5v14" />
     </svg>
   );
-}
+};
+
+export default AddIcon;

@@ -1,18 +1,8 @@
-import PropTypes from "prop-types";
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { employeeStatuses } from "../../constants";
 
-EditEmployeeForm.propTypes = {
-  initialValues: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    username: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-  }).isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
-
-export default function EditEmployeeForm({ initialValues, onSubmit, onDelete }) {
+const EditEmployeeForm = ({ initialValues, onSubmit, onDelete }) => {
   const [username, setUsername] = useState(initialValues.username);
   const [status, setStatus] = useState(initialValues.status);
 
@@ -91,4 +81,17 @@ export default function EditEmployeeForm({ initialValues, onSubmit, onDelete }) 
       </form>
     </div>
   );
-}
+};
+
+EditEmployeeForm.propTypes = {
+  initialValues: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    username: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    imgUrl: PropTypes.string,
+  }).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
+export default EditEmployeeForm;

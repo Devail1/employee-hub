@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { employeeStatuses } from "../constants";
 import {
   useDeleteEmployeeMutation,
@@ -11,7 +11,7 @@ import EditEmployeeForm from "./forms/EditEmployeeForm";
 import AvatarImage from "../assets/avatar.png";
 import EditIcon from "./icons/EditIcon";
 
-const EmployeeCard = ({ username, status, id }) => {
+const EmployeeCard = ({ id, username, status, imgUrl }) => {
   const { refetch } = useGetAllEmployeesQuery();
   const [updateEmployee] = useUpdateEmployeeMutation();
   const [deleteEmployee] = useDeleteEmployeeMutation();
@@ -46,7 +46,7 @@ const EmployeeCard = ({ username, status, id }) => {
       {isOpen && (
         <Modal isOpen={isOpen} onClose={closeModal}>
           <EditEmployeeForm
-            initialValues={{ username, status, id }}
+            initialValues={{ id, username, status, imgUrl }}
             onDelete={deleteAction}
             onSubmit={confirmAction}
           />
@@ -56,7 +56,7 @@ const EmployeeCard = ({ username, status, id }) => {
         <div className="flex items-center gap-4">
           <img
             alt=""
-            src={AvatarImage}
+            src={imgUrl || AvatarImage}
             className="size-16 rounded-full object-cover border"
           />
 
@@ -87,6 +87,7 @@ EmployeeCard.propTypes = {
   username: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  imgUrl: PropTypes.string,
 };
 
 export default EmployeeCard;
