@@ -6,8 +6,8 @@ body {
   min-height: 100vh; /* Fallback for non-supporting browsers */
 }
 
-@supports (min-height: 100dvh) {
+@supports (min-height: 100svh) {
   .min-full-screen {
-    min-height: 100dvh; /* Use min-h-screen for supported browsers */
+    min-height: 100svh; /* Use min-h-screen for supported browsers */
   }
 }

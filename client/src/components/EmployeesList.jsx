@@ -39,6 +39,9 @@ const EmployeesList = () => {
           <AddIcon className="shrink-0 rounded-full border border-indigo-600 bg-white p-2 group-active:border-indigo-500" />
         }
       />
+      {employees?.length === 0 && (
+        <p className="text-center">No employees found</p>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {employees?.map((employee) => (
           <EmployeeCard key={employee.id} {...employee} />
