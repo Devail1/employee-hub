@@ -10,7 +10,7 @@ const AddEmployeeForm = ({ onSubmit }) => {
   const [username, setUsername] = useState("");
   const [status, setStatus] = useState("working"); // Default status
 
-  const handleAddEmployee = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { username, status };
     try {
@@ -29,15 +29,9 @@ const AddEmployeeForm = ({ onSubmit }) => {
         <p className="mt-4 text-gray-500">Add a new employee to the system</p>
       </div>
 
-      <form
-        onSubmit={handleAddEmployee}
-        className="mx-auto mb-0 mt-6 max-w-md space-y-4"
-      >
+      <form onSubmit={handleSubmit} className="mx-auto mb-0 mt-6 max-w-md space-y-4">
         <div>
-          <label
-            htmlFor="username"
-            className="block text-sm font-medium text-gray-700 text-left"
-          >
+          <label htmlFor="username" className="block text-sm font-medium text-gray-700 text-left">
             Username
           </label>
           <input
@@ -52,10 +46,7 @@ const AddEmployeeForm = ({ onSubmit }) => {
         </div>
 
         <div className="pb-2">
-          <label
-            htmlFor="status"
-            className="block text-sm font-medium text-gray-700 text-left"
-          >
+          <label htmlFor="status" className="block text-sm font-medium text-gray-700 text-left">
             Status
           </label>
           <select

@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-const EditIcon = ({ className }) => {
-  return (
-    <div className={className}>
-      <span className="sr-only"> Edit </span>
 
+const UploadIcon = ({ className }) => {
+  return (
+    <span className={className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -16,14 +15,16 @@ const EditIcon = ({ className }) => {
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-        <path d="m15 5 4 4" />
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="17 8 12 3 7 8" />
+        <line x1="12" x2="12" y1="3" y2="15" />
       </svg>
-    </div>
+    </span>
   );
 };
 
-EditIcon.propTypes = {
+UploadIcon.propTypes = {
   className: PropTypes.string,
 };
-export default EditIcon;
+
+export default UploadIcon;

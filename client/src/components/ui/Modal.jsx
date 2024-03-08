@@ -5,7 +5,7 @@ import CloseIcon from "../icons/CloseIcon";
 const Modal = ({ children, onClose }) => {
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity">
-      <div className="flex items-center justify-center py-4 px-4 min-full-screen">
+      <div className="flex items-center justify-center py-4 px-4 h-full">
         <div className="w-full max-w-sm bg-white rounded-lg overflow-hidden shadow-xl">
           <div className="relative">
             <button

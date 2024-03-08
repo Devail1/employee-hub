@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import { employeeStatuses } from "../constants";
 import Modal from "./ui/Modal";
 import EditEmployeeForm from "./forms/EditEmployeeForm";
-import AvatarImage from "../assets/avatar.png";
 import EditIcon from "./icons/EditIcon";
 import Button from "./ui/Button";
-
+import useImageOnLoad from "../hooks/useImageOnLoad";
+import AvatarErrorImg from "../assets/avatar.png";
+import ImageSkeleton from "./skeletons/ImageSkeleton";
 const EmployeeCard = (employee) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isLoaded } = useImageOnLoad(employee.imgUrl);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
@@ -21,16 +23,18 @@ const EmployeeCard = (employee) => {
       )}
       <article className="rounded-xl border border-gray-700 bg-neutral-100 shadow-md  p-4">
         <div className="flex items-center gap-4">
-          <img
-            alt="Profile Picture"
-            src={employee.imgUrl || AvatarImage}
-            className="size-16 rounded-full object-cover border"
-          />
+          {isLoaded ? (
+            <img
+              alt="Profile Picture"
+              src={employee.imgUrl || AvatarErrorImg}
+              className="size-16 rounded-full object-cover border"
+            />
+          ) : (
+            <ImageSkeleton />
+          )}
 
           <div className="flex flex-col items-start">
-            <h3 className="text-lg font-medium text-gray-700">
-              {employee.username}
-            </h3>
+            <h3 className="text-lg font-medium text-gray-700">{employee.username}</h3>
 
             <ul className="-m-1 flex flex-wrap">
               <li className="p-1 leading-none">

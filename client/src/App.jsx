@@ -3,7 +3,7 @@ import "./App.css";
 
 const App = () => {
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div className="container h-screen mx-auto py-8 px-4">
       <EmployeesList />
     </div>
   );

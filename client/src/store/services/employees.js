@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const employeesApi = createApi({
   reducerPath: "employeesApi",
-  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_APP_BASE_URL }),
   tagTypes: ["Employees"],
   endpoints: (builder) => ({
     getAllEmployees: builder.query({
@@ -32,6 +32,14 @@ export const employeesApi = createApi({
       }),
       invalidatesTags: ["Employees"],
     }),
+    uploadImage: builder.mutation({
+      query: ({ id, file }) => ({
+        url: `employees/${id}/image-upload`,
+        method: "POST",
+        body: file,
+      }),
+      invalidatesTags: ["Employees"],
+    }),
   }),
 });
 
@@ -40,4 +48,5 @@ export const {
   useCreateEmployeeMutation,
   useUpdateEmployeeMutation,
   useDeleteEmployeeMutation,
+  useUploadImageMutation,
 } = employeesApi;

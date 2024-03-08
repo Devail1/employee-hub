@@ -36,9 +36,7 @@ module.exports = async (app, prisma) => {
       const updatedEmployeeData = req.body;
 
       if (!updatedEmployeeData || Object.keys(updatedEmployeeData).length === 0) {
-        return res
-          .status(400)
-          .json({ message: "Missing or empty employee data" });
+        return res.status(400).json({ message: "Missing or empty employee data" });
       }
 
       const updatedEmployee = await prisma.employees.update({
@@ -46,9 +44,7 @@ module.exports = async (app, prisma) => {
         data: updatedEmployeeData,
       });
 
-      res
-        .status(200)
-        .json({ message: "Employee updated successfully", updatedEmployee });
+      res.status(200).json({ message: "Employee updated successfully", updatedEmployee });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
