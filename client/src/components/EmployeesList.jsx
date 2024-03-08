@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useGetAllEmployeesQuery } from "../store/services/employees";
+import { useGetAllEmployeesQuery } from "@/store/services/employees";
 import EmployeeCard from "./EmployeeCard";
 import Modal from "./ui/Modal";
 import AddEmployeeForm from "./forms/AddEmployeeForm";

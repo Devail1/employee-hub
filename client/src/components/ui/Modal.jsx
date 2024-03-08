@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CloseIcon from "../icons/CloseIcon";
+import CloseIcon from "@/components/icons/CloseIcon";
 
 const Modal = ({ children, onClose }) => {
   return (

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { employeeStatuses } from "../../constants";
-import Button from "../ui/Button";
-import { useCreateEmployeeMutation } from "../../store/services/employees";
+import { employeeStatuses } from "@/constants";
+import Button from "@/components/ui/Button";
+import { useCreateEmployeeMutation } from "@/store/services/employees";
 
 const AddEmployeeForm = ({ onSubmit }) => {
   const [createEmployee, { isLoading }] = useCreateEmployeeMutation();

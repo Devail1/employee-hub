@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { employeeStatuses } from "../constants";
+import { employeeStatuses } from "@/constants";
 import Modal from "./ui/Modal";
 import EditEmployeeForm from "./forms/EditEmployeeForm";
 import EditIcon from "./icons/EditIcon";
 import Button from "./ui/Button";
-import useImageOnLoad from "../hooks/useImageOnLoad";
-import AvatarErrorImg from "../assets/avatar.png";
+import useImageOnLoad from "@/hooks/useImageOnLoad";
+import AvatarErrorImg from "@/assets/avatar.png";
 import ImageSkeleton from "./skeletons/ImageSkeleton";
 const EmployeeCard = (employee) => {
   const [isOpen, setIsOpen] = useState(false);

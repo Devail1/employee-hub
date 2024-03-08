@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { employeeStatuses } from "../../constants";
-import Button from "../ui/Button";
-import MissingAvatarImage from "../../assets/avatar.png";
+import { employeeStatuses } from "@/constants";
+import Button from "@/components/ui/Button";
+import MissingAvatarImage from "@/assets/avatar.png";
+import useImageOnLoad from "@/hooks/useImageOnLoad";
+import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
+import UploadIcon from "@/components/icons/UploadIcon";
 import {
   useDeleteEmployeeMutation,
   useUpdateEmployeeMutation,
   useUploadImageMutation,
-} from "../../store/services/employees";
-import useImageOnLoad from "../../hooks/useImageOnLoad";
-import ImageSkeleton from "../skeletons/ImageSkeleton";
-import UploadIcon from "../icons/UploadIcon";
+} from "@/store/services/employees";
+
 const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
   const [updateEmployee, { isLoading: isUpdateLoading }] = useUpdateEmployeeMutation();
   const [deleteEmployee, { isLoading: isDeleteLoading }] = useDeleteEmployeeMutation();
