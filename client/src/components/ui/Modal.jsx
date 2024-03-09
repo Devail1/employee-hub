@@ -1,21 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CloseIcon from "../icons/CloseIcon";
+import CloseIcon from "@/assets/icons/close.svg";
+import Button from "./Button";
 
 const Modal = ({ children, onClose }) => {
   return (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity">
-      <div className="flex items-center justify-center py-4 px-4 min-full-screen">
-        <div className="w-full max-w-sm bg-white rounded-lg overflow-hidden shadow-xl">
+    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-10">
+      <div className="flex items-center justify-center py-4 px-4 h-full">
+        <div className="w-full max-w-sm bg-neutral-100 rounded-lg overflow-hidden shadow-xl">
           <div className="relative">
-            <button
-              type="button"
+            <Button
+              className="absolute top-2 right-2 bg-transparent rounded-sm hover:bg-white transition-colors"
               onClick={onClose}
-              aria-label="Close Modal"
-              className="absolute top-2 right-2 bg-transparent hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-opacity-75"
-            >
-              <CloseIcon />
-            </button>
+              iconSrc={CloseIcon}
+              iconAlt="Close Modal"
+              title="Close Modal"
+              iconSize="lg"
+            />
           </div>
           {children}
         </div>

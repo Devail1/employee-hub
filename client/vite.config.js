@@ -7,6 +7,10 @@ import { defineConfig } from "vite";
 export default defineConfig(() => {
   return {
     plugins: [react(), eslint(), tailwindcss()],
+    resolve: {
+      alias: [{ find: "@", replacement: "/src" }],
+    },
+    envDir: "../",
     server: {
       port: 3000,
       proxy: {

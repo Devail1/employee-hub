@@ -2,12 +2,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const employeesApi = createApi({
   reducerPath: "employeesApi",
-  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   tagTypes: ["Employees"],
   endpoints: (builder) => ({
     getAllEmployees: builder.query({
       query: () => "employees",
-      providesTags: ["Employees"],
+      providesTags: (result) =>
+        result
+          ? [...result.map(({ id }) => ({ type: "Employees", id })), "Employees"]
+          : ["Employees"],
     }),
     createEmployee: builder.mutation({
       query: (employeeData) => ({
@@ -23,14 +26,22 @@ export const employeesApi = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["Employees"],
+      invalidatesTags: ({ id }) => [{ type: "Employees", id }],
     }),
     deleteEmployee: builder.mutation({
       query: (id) => ({
         url: `employees/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Employees"],
+      invalidatesTags: ({ id }) => [{ type: "Employees", id }],
+    }),
+    uploadImage: builder.mutation({
+      query: ({ id, file }) => ({
+        url: `employees/${id}/image-upload`,
+        method: "POST",
+        body: file,
+      }),
+      invalidatesTags: ({ id }) => [{ type: "Employees", id }],
     }),
   }),
 });
@@ -40,4 +51,5 @@ export const {
   useCreateEmployeeMutation,
   useUpdateEmployeeMutation,
   useDeleteEmployeeMutation,
+  useUploadImageMutation,
 } = employeesApi;

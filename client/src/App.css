@@ -1,13 +1,4 @@
 body {
   min-width: 375px;
-}
-
-.min-full-screen {
-  min-height: 100vh; /* Fallback for non-supporting browsers */
-}
-
-@supports (min-height: 100svh) {
-  .min-full-screen {
-    min-height: 100svh; /* Use min-h-screen for supported browsers */
-  }
+  background-color: rgb(245 245 245);
 }
