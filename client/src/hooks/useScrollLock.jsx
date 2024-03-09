@@ -28,7 +28,7 @@ export function useScrollLock(options = {}) {
       target.current.style.overflow = "hidden";
 
       // Prevent auto scrolling on keyboard lunch on touch devices (ios)
-      document.addEventListener("touchmove", preventDefault, { passive: false });
+      // document.addEventListener("touchmove", preventDefault, { passive: false });
 
       setIsLocked(true);
     }
@@ -43,14 +43,14 @@ export function useScrollLock(options = {}) {
       }
     }
 
-    document.removeEventListener("touchmove", preventDefault);
+    // document.removeEventListener("touchmove", preventDefault);
 
     setIsLocked(false);
   };
 
-  const preventDefault = (e) => {
-    e.preventDefault();
-  };
+  // const preventDefault = (e) => {
+  //   e.preventDefault();
+  // };
 
   useEffect(() => {
     if (IS_SERVER) return;

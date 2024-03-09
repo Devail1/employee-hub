@@ -1,4 +1,5 @@
 body {
   min-width: 375px;
   background-color: rgb(245 245 245);
+  position: fixed;
 }
