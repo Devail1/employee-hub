@@ -1,11 +1,13 @@
 import React from "react";
+import { useScrollLock } from "@/hooks/useScrollLock";
 import PropTypes from "prop-types";
 import CloseIcon from "@/assets/icons/close.svg";
 import Button from "./Button";
 
 const Modal = ({ children, onClose }) => {
+  useScrollLock();
   return (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-10">
+    <div className="fixed inset-0  bg-gray-500 bg-opacity-75 transition-opacity z-10">
       <div className="flex items-center justify-center py-4 px-4 h-full">
         <div className="w-full max-w-sm bg-neutral-50 rounded-lg overflow-hidden shadow-xl">
           <div className="relative">

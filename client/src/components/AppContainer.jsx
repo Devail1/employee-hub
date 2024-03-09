@@ -8,7 +8,7 @@ const AppContainer = ({ children }) => {
   return (
     <Provider store={store}>
       <div className="h-screen min-h-screen py-6 bg-neutral-100">
-        <div className="container h-full mx-auto px-4">
+        <div className="container h-full mx-auto px-4 ">
           <>
             {children}
             <Toaster position="bottom-center" />
