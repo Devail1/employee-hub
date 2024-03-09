@@ -16,8 +16,11 @@ const EmployeeCard = (employee) => {
     useDeleteEmployeeMutation();
   const { isLoaded } = useImageOnLoad(employee.imgUrl);
 
-  const [showModal, setShowModal] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+
+  const openModal = () => setShowEditModal(true);
+  const closeModal = () => setShowEditModal(false);
 
   const handleDelete = async (employeeId) => {
     try {
@@ -30,31 +33,32 @@ const EmployeeCard = (employee) => {
       toast.error("An unexpected error occurred. Please try again.");
     }
 
-    setShowModal(false);
+    closeModal();
   };
 
   const handleAlertConfirm = async (id) => {
     await handleDelete(id);
-    setShowAlert(false);
+    setShowDeleteAlert(false);
   };
+
+  const statusLabel = employeeStatuses.find(
+    (status) => status.value === employee.status,
+  )?.label;
 
   return (
     <>
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <EditEmployeeForm
-            onSubmit={() => setShowModal(false)}
-            initialValues={employee}
-          />
+      {showEditModal && (
+        <Modal onClose={closeModal}>
+          <EditEmployeeForm onSubmit={closeModal} initialValues={employee} />
         </Modal>
       )}
-      {showAlert && (
-        <Modal onClose={() => setShowAlert(false)}>
+      {showDeleteAlert && (
+        <Modal onClose={closeModal}>
           <Alert
             title="Are you sure you want to delete this profile?"
             message="This action cannot be undone."
             onConfirm={() => handleAlertConfirm(employee.id)}
-            onCancel={() => setShowAlert(false)}
+            onCancel={closeModal}
           />
         </Modal>
       )}
@@ -76,19 +80,14 @@ const EmployeeCard = (employee) => {
             </h3>
 
             <ul className="-m-1 flex flex-wrap">
-              <li className="p-1 leading-none">
-                {
-                  employeeStatuses.find((s) => s.value === employee.status)
-                    ?.label
-                }
-              </li>
+              <li className="p-1 leading-none">{statusLabel}</li>
             </ul>
           </div>
 
           <span className="ml-auto inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
             <Button
               className="group inline-block border-e p-3 text-gray-500 hover:bg-gray-200 focus:relative"
-              onClick={() => setShowModal(true)}
+              onClick={openModal}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +105,7 @@ const EmployeeCard = (employee) => {
               </svg>
             </Button>
             <Button
-              onClick={() => setShowAlert(true)}
+              onClick={() => setShowDeleteAlert(true)}
               className="group inline-block border-e p-3 text-gray-500 transition-colors hover:border-e-red-500 hover:bg-red-500 focus:relative"
               isLoading={isDeleting}
             >
