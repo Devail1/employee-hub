@@ -10,7 +10,7 @@ import Error from "./Error";
 const EmployeesList = () => {
   const { data: employees, isLoading, error } = useGetAllEmployeesQuery();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   if (isLoading)
     return (
@@ -21,12 +21,12 @@ const EmployeesList = () => {
 
   if (error) return <Error message={error.data?.message} />;
 
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   return (
     <div>
-      {isOpen && (
+      {showModal && (
         <Modal onClose={closeModal}>
           <AddEmployeeForm onSubmit={closeModal} />
         </Modal>
