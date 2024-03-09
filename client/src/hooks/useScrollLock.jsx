@@ -1,14 +1,14 @@
 // inspired by - https://usehooks-ts.com/react-hook/use-scroll-lock
 import { useRef, useState, useEffect } from "react";
+import { isIOS } from "@/utils";
 
 const IS_SERVER = typeof window === "undefined";
 
-export function useScrollLock(options = {}) {
+export const useScrollLock = (options = {}) => {
   const { autoLock = true, lockTarget, widthReflow = true } = options;
   const [isLocked, setIsLocked] = useState(false);
   const target = useRef(null);
   const originalStyle = useRef(null);
-
   const lock = () => {
     if (target.current) {
       const { overflow, paddingRight } = target.current.style;
@@ -27,8 +27,7 @@ export function useScrollLock(options = {}) {
 
       target.current.style.overflow = "hidden";
 
-      // Prevent auto scrolling on keyboard lunch on touch devices (ios)
-      // document.addEventListener("touchmove", preventDefault, { passive: false });
+      if (isIOS()) target.current.style.position = "fixed";
 
       setIsLocked(true);
     }
@@ -37,20 +36,15 @@ export function useScrollLock(options = {}) {
   const unlock = () => {
     if (target.current && originalStyle.current) {
       target.current.style.overflow = originalStyle.current.overflow;
+      target.current.style.position = originalStyle.current.position;
 
       if (widthReflow) {
         target.current.style.paddingRight = originalStyle.current.paddingRight;
       }
     }
 
-    // document.removeEventListener("touchmove", preventDefault);
-
     setIsLocked(false);
   };
-
-  // const preventDefault = (e) => {
-  //   e.preventDefault();
-  // };
 
   useEffect(() => {
     if (IS_SERVER) return;
@@ -75,4 +69,4 @@ export function useScrollLock(options = {}) {
   }, [autoLock, lockTarget, widthReflow]);
 
   return { isLocked, lock, unlock };
-}
+};
