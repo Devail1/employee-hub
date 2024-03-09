@@ -4,9 +4,11 @@ const storage = multer.memoryStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
   },
-  limits: { fileSize: 1024 * 1024 }, // Limit file size to 1MB
 });
 
-const multerUpload = multer({ storage: storage });
+const multerUpload = multer({
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
+});
 
 module.exports = multerUpload;
