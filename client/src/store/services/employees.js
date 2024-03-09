@@ -7,7 +7,10 @@ export const employeesApi = createApi({
   endpoints: (builder) => ({
     getAllEmployees: builder.query({
       query: () => "employees",
-      providesTags: ["Employees"],
+      providesTags: (result) =>
+        result
+          ? [...result.map(({ id }) => ({ type: "Employees", id })), "Employees"]
+          : ["Employees"],
     }),
     createEmployee: builder.mutation({
       query: (employeeData) => ({
@@ -23,14 +26,14 @@ export const employeesApi = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["Employees"],
+      invalidatesTags: ({ id }) => [{ type: "Employees", id }],
     }),
     deleteEmployee: builder.mutation({
       query: (id) => ({
         url: `employees/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Employees"],
+      invalidatesTags: ({ id }) => [{ type: "Employees", id }],
     }),
     uploadImage: builder.mutation({
       query: ({ id, file }) => ({
@@ -38,7 +41,7 @@ export const employeesApi = createApi({
         method: "POST",
         body: file,
       }),
-      invalidatesTags: ["Employees"],
+      invalidatesTags: ({ id }) => [{ type: "Employees", id }],
     }),
   }),
 });

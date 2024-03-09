@@ -12,7 +12,7 @@ import FileInput from "@/components/ui/FileInput";
 
 const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
   const [updateEmployee, { isLoading: isUpdateLoading }] = useUpdateEmployeeMutation();
-  const [uploadImage, { isLoading: isUploadLoading }] = useUploadImageMutation();
+  const [uploadImage, { isLoading: isImgUploadLoading }] = useUploadImageMutation();
   const { isLoaded: isImageLoaded } = useImageOnLoad(employee.imgUrl);
 
   const [formData, setFormData] = useState({
@@ -40,7 +40,10 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
     try {
       toast.promise(uploadImage({ id: employee.id, file: formData }).unwrap(), {
         loading: "Uploading image...",
-        success: "Image uploaded successfully!",
+        success: (data) => {
+          setFormData((prevData) => ({ ...prevData, imgUrl: data.imageUrl }));
+          return "Image uploaded successfully!";
+        },
         error: (error) => `Error uploading image: ${error.data?.message || error}`,
       });
     } catch (error) {
@@ -76,7 +79,7 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
           <div className="text-left relative w-20 h-20 self-center mb-2">
             {isImageLoaded ? (
               <>
-                <FileInput onChange={handleImageUpload} isLoading={isUploadLoading} />
+                <FileInput onChange={handleImageUpload} isLoading={isImgUploadLoading} />
                 <img
                   alt="Profile Picture"
                   src={formData.imgUrl || MissingAvatarImage}
@@ -114,7 +117,7 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
             className="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5"
             type="submit"
             label="Save Changes"
-            isLoading={isUpdateLoading || isUploadLoading}
+            isLoading={isUpdateLoading || isImgUploadLoading}
           />
         </div>
       </form>
