@@ -72,7 +72,3 @@ pnpm run start
 
 # Access the project at http://localhost:3000 in your web browser.
 ```
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
