@@ -21,7 +21,10 @@ const Button = ({
   };
   return (
     <button
-      className={`${className} ${"disabled:cursor-not-allowed disabled:opacity-50 disabled:outline-none disabled:ring-0"}`}
+      className={clsx(
+        className,
+        "disabled:cursor-not-allowed disabled:opacity-50 disabled:outline-none disabled:ring-0"
+      )}
       disabled={isLoading}
       type="button"
       {...rest}
@@ -35,9 +38,8 @@ const Button = ({
         )}
       </div>
       {iconSrc && (
-        <div className=" cursor-pointer h-full w-full">
+        <div className="cursor-pointer h-full w-full">
           {title && <span className="sr-only">{title}</span>}
-
           <img
             src={iconSrc}
             alt={iconAlt}

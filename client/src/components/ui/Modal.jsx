@@ -10,7 +10,7 @@ const Modal = ({ children, onClose }) => {
         <div className="w-full max-w-sm bg-neutral-100 rounded-lg overflow-hidden shadow-xl">
           <div className="relative">
             <Button
-              className="absolute top-2 right-2 bg-transparent rounded-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-opacity-75"
+              className="absolute top-2 right-2 bg-transparent rounded-sm hover:bg-white transition-colors"
               onClick={onClose}
               iconSrc={CloseIcon}
               iconAlt="Close Modal"
