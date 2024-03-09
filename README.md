@@ -23,7 +23,7 @@ Check out the live [demo](https://employee-hub.onrender.com/) of Employee Hub.
 
 ## Installation
 
-Navigate into the project folder with:
+Navigate into the project folder:
 
 ```bash
 cd employee-hub
@@ -65,7 +65,7 @@ Navigate back to the project's root folder:
 cd ..
 ```
 
-Run the node server:
+Start the node server:
 
 ```bash
 pnpm run start
