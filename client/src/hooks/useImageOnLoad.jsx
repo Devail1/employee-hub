@@ -1,3 +1,4 @@
+// inspired by depricated hook - https://usehooks-ts.com/react-hook/use-image-on-load
 import { useState, useEffect, useRef } from "react";
 
 const useImageOnLoad = (src) => {

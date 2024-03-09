@@ -14,7 +14,7 @@ const EmployeesList = () => {
 
   if (isLoading)
     return (
-      <div className="flex justify-center items-center h-full">
+      <div className="flex h-full items-center justify-center">
         <Spinner />
       </div>
     );
@@ -32,7 +32,7 @@ const EmployeesList = () => {
         </Modal>
       )}
       <Button
-        className="max-w-xs mb-8 group flex items-center justify-between gap-4 rounded-lg border border-indigo-400 bg-white hover:shadow-md border-current px-5 py-3 text-indigo-500 transition-colors hover:bg-indigo-400 focus:outline-none active:bg-indigo-500"
+        className="group mb-8 flex max-w-xs items-center justify-between gap-4 rounded-lg border border-current border-indigo-400 bg-white px-5 py-3 text-indigo-500 transition-colors hover:bg-indigo-400 hover:shadow-md focus:outline-none active:bg-indigo-500"
         onClick={openModal}
         label="New Employee"
         iconSize="lg"
@@ -47,7 +47,7 @@ const EmployeesList = () => {
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="w-full group-hover:stroke-white transition-colors"
+          className="w-full transition-colors group-hover:stroke-white"
         >
           <path d="M2 21a8 8 0 0 1 13.292-6" />
           <circle cx="10" cy="8" r="5" />
@@ -55,8 +55,10 @@ const EmployeesList = () => {
           <path d="M22 19h-6" />
         </svg>
       </Button>
-      {employees?.length === 0 && <p className="text-center">No employees found</p>}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-6">
+      {employees?.length === 0 && (
+        <p className="text-center">No employees found</p>
+      )}
+      <div className="grid grid-cols-1 gap-4 pb-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
         {employees?.map((employee) => (
           <EmployeeCard key={employee.id} {...employee} />
         ))}

@@ -17,9 +17,12 @@ export const useScrollLock = (options = {}) => {
 
       if (widthReflow) {
         const offsetWidth =
-          target.current === document.body ? window.innerWidth : target.current.offsetWidth;
+          target.current === document.body
+            ? window.innerWidth
+            : target.current.offsetWidth;
         const currentPaddingRight =
-          parseInt(window.getComputedStyle(target.current).paddingRight, 10) || 0;
+          parseInt(window.getComputedStyle(target.current).paddingRight, 10) ||
+          0;
 
         const scrollbarWidth = offsetWidth - target.current.scrollWidth;
         target.current.style.paddingRight = `${scrollbarWidth + currentPaddingRight}px`;
@@ -27,6 +30,7 @@ export const useScrollLock = (options = {}) => {
 
       target.current.style.overflow = "hidden";
 
+      // Fix iOS bug: Prevent auto scroll on keyboard lunch
       if (isIOS()) target.current.style.position = "fixed";
 
       setIsLocked(true);
@@ -51,7 +55,9 @@ export const useScrollLock = (options = {}) => {
 
     if (lockTarget) {
       target.current =
-        typeof lockTarget === "string" ? document.querySelector(lockTarget) : lockTarget;
+        typeof lockTarget === "string"
+          ? document.querySelector(lockTarget)
+          : lockTarget;
     }
 
     if (!target.current) {

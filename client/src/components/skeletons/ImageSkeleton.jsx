@@ -5,7 +5,9 @@ import PropTypes from "prop-types";
 const ImageSkeleton = ({ className, size = "size-16" }) => {
   return (
     <div className={clsx("flex items-center justify-center", className)}>
-      <div className={clsx("bg-gray-200 rounded-full  animate-pulse", size)}></div>
+      <div
+        className={clsx("animate-pulse rounded-full  bg-gray-200", size)}
+      ></div>
     </div>
   );
 };

@@ -3,14 +3,17 @@ import PropTypes from "prop-types";
 
 const Dropdown = ({ options, label, name, value, onChange }) => {
   return (
-    <div className="relative w-full flex flex-col gap-2">
-      <label htmlFor={name} className="block text-sm font-medium text-gray-700 text-left">
+    <div className="relative flex w-full flex-col gap-2">
+      <label
+        htmlFor={name}
+        className="block text-left text-sm font-medium text-gray-700"
+      >
         {label}
       </label>
       <select
         id={name}
         name={name}
-        className="w-full rounded-lg border-gray-200 h-10 px-3 py-2 text-sm shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        className="h-10 w-full rounded-lg border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500"
         value={value}
         onChange={onChange}
         required
@@ -31,7 +34,7 @@ Dropdown.propTypes = {
     PropTypes.shape({
       label: PropTypes.string,
       value: PropTypes.string,
-    })
+    }),
   ),
   name: PropTypes.string,
   value: PropTypes.string,
