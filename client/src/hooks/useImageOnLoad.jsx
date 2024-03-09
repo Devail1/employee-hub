@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-function useImageOnLoad(src) {
+const useImageOnLoad = (src) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const imageRef = useRef(null);
@@ -21,6 +21,6 @@ function useImageOnLoad(src) {
   }, [src]);
 
   return { isLoaded, error };
-}
+};
 
 export default useImageOnLoad;
