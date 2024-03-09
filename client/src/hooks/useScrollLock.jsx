@@ -5,7 +5,7 @@ import { isIOS } from "@/utils";
 const IS_SERVER = typeof window === "undefined";
 
 export const useScrollLock = (options = {}) => {
-  const { autoLock = true, lockTarget, widthReflow = true } = options;
+  const { autoLock = true, lockTarget, widthReflow = false } = options;
   const [isLocked, setIsLocked] = useState(false);
   const target = useRef(null);
   const originalStyle = useRef(null);
