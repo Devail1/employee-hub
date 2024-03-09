@@ -9,7 +9,10 @@ export const employeesApi = createApi({
       query: () => "employees",
       providesTags: (result) =>
         result
-          ? [...result.map(({ id }) => ({ type: "Employees", id })), "Employees"]
+          ? [
+              ...result.map(({ id }) => ({ type: "Employees", id })),
+              "Employees",
+            ]
           : ["Employees"],
     }),
     createEmployee: builder.mutation({

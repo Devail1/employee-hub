@@ -7,13 +7,13 @@ import useImageOnLoad from "@/hooks/useImageOnLoad";
 import Modal from "./ui/Modal";
 import EditEmployeeForm from "./forms/EditEmployeeForm";
 import Button from "./ui/Button";
-import AvatarErrorImg from "@/assets/images/avatar.png";
+import AvatarErrorImg from "@/assets/avatar.png";
 import ImageSkeleton from "./skeletons/ImageSkeleton";
-import EditIcon from "@/assets/icons/edit.svg";
 import Alert from "./ui/Alert";
 
 const EmployeeCard = (employee) => {
-  const [deleteEmployee, { isLoading: isDeleting }] = useDeleteEmployeeMutation();
+  const [deleteEmployee, { isLoading: isDeleting }] =
+    useDeleteEmployeeMutation();
   const { isLoaded } = useImageOnLoad(employee.imgUrl);
 
   const [showModal, setShowModal] = useState(false);
@@ -42,62 +42,80 @@ const EmployeeCard = (employee) => {
     <>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <EditEmployeeForm onSubmit={() => setShowModal(false)} initialValues={employee} />
+          <EditEmployeeForm
+            onSubmit={() => setShowModal(false)}
+            initialValues={employee}
+          />
         </Modal>
       )}
       {showAlert && (
         <Modal onClose={() => setShowAlert(false)}>
           <Alert
-            title="Are you sure you want to delete this employee?"
+            title="Are you sure you want to delete this profile?"
             message="This action cannot be undone."
             onConfirm={() => handleAlertConfirm(employee.id)}
             onCancel={() => setShowAlert(false)}
           />
         </Modal>
       )}
-      <article className="rounded-xl  bg-white shadow-md  p-4">
+      <article className="rounded-xl  bg-white p-4  shadow-md">
         <div className="flex items-center gap-4">
           {isLoaded ? (
             <img
               alt="Profile Picture"
               src={employee.imgUrl || AvatarErrorImg}
-              className="size-16 rounded-full object-cover border border-gray-300"
+              className="size-16 rounded-full border border-gray-300 object-cover"
             />
           ) : (
             <ImageSkeleton />
           )}
 
           <div className="flex flex-col items-start">
-            <h3 className="text-lg font-medium text-gray-700">{employee.username}</h3>
+            <h3 className="text-lg font-medium text-gray-700">
+              {employee.username}
+            </h3>
 
             <ul className="-m-1 flex flex-wrap">
               <li className="p-1 leading-none">
-                {employeeStatuses.find((s) => s.value === employee.status)?.label}
+                {
+                  employeeStatuses.find((s) => s.value === employee.status)
+                    ?.label
+                }
               </li>
             </ul>
           </div>
 
-          <span className="inline-flex overflow-hidden rounded-md border bg-white shadow-sm ml-auto">
+          <span className="ml-auto inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
             <Button
-              className="inline-block border-e p-3 text-gray-700 hover:bg-gray-100 focus:relative"
+              className="group inline-block border-e p-3 text-gray-500 hover:bg-gray-200 focus:relative"
               onClick={() => setShowModal(true)}
-              iconSrc={EditIcon}
-              iconAlt="Edit Employee"
-              title="Edit"
-            />
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="h-4 w-4 stroke-gray-500 transition-colors group-hover:stroke-gray-700"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                />
+              </svg>
+            </Button>
             <Button
               onClick={() => setShowAlert(true)}
-              className="group inline-block border-e p-3 text-gray-700 hover:bg-red-400 hover:border-e-red-400 focus:relative transition-colors"
-              title="Delete"
+              className="group inline-block border-e p-3 text-gray-500 transition-colors hover:border-e-red-500 hover:bg-red-500 focus:relative"
               isLoading={isDeleting}
-              iconAlt="Delete Employee"
             >
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="h-4 w-4 group-hover:stroke-white group-hover:stroke-2 transition-colors"
+                className="h-4 w-4 transition-colors group-hover:stroke-white group-hover:stroke-2"
               >
                 <path
                   strokeLinecap="round"
