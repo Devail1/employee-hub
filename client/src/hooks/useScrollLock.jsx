@@ -36,7 +36,7 @@ export const useScrollLock = (options = {}) => {
   const unlock = () => {
     if (target.current && originalStyle.current) {
       target.current.style.overflow = originalStyle.current.overflow;
-      target.current.style.position = originalStyle.current.position;
+      if (isIOS()) target.current.style.position = "unset";
 
       if (widthReflow) {
         target.current.style.paddingRight = originalStyle.current.paddingRight;
