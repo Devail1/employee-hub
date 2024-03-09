@@ -23,7 +23,7 @@ Check out the live [demo](https://employee-hub.onrender.com/) of Employee Hub.
 
 ## Installation
 
-Navigate into the project folder with:
+Navigate into the project folder:
 
 ```bash
 cd employee-hub
@@ -41,7 +41,7 @@ Copy the `.env` file into the project's root directory.
 
 ### Running in development
 
-To run the project in development environment, use the following command:
+To run the project in development mode, use the following command:
 
 ```bash
 pnpm run dev
@@ -51,7 +51,7 @@ pnpm run dev
 
 ### Running in production
 
-In order to run the project in production environment, we will first need to build the client side application:
+In order to run the project in production mode, we first need to build the client side application:
 
 ```bash
 cd client
@@ -65,7 +65,7 @@ Navigate back to the project's root folder:
 cd ..
 ```
 
-Run the node server:
+Start the node server:
 
 ```bash
 pnpm run start
