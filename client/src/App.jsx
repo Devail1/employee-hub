@@ -3,8 +3,10 @@ import "./App.css";
 
 const App = () => {
   return (
-    <div className="container h-screen mx-auto py-8 px-4">
-      <EmployeesList />
+    <div className="h-screen min-h-screen py-6 bg-neutral-200">
+      <div className="container h-full mx-auto px-4">
+        <EmployeesList />
+      </div>
     </div>
   );
 };

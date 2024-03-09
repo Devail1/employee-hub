@@ -2,19 +2,15 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { employeeStatuses } from "@/constants";
 import Button from "@/components/ui/Button";
-import MissingAvatarImage from "@/assets/avatar.png";
+import MissingAvatarImage from "@/assets/images/avatar.png";
 import useImageOnLoad from "@/hooks/useImageOnLoad";
 import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
-import UploadIcon from "@/components/icons/UploadIcon";
-import {
-  useDeleteEmployeeMutation,
-  useUpdateEmployeeMutation,
-  useUploadImageMutation,
-} from "@/store/services/employees";
+import { useUpdateEmployeeMutation, useUploadImageMutation } from "@/store/services/employees";
+import Dropdown from "@/components/ui/Dropdown";
+import FileInput from "@/components/ui/FileInput";
 
 const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
   const [updateEmployee, { isLoading: isUpdateLoading }] = useUpdateEmployeeMutation();
-  const [deleteEmployee, { isLoading: isDeleteLoading }] = useDeleteEmployeeMutation();
   const [uploadImage, { isLoading: isUploadLoading }] = useUploadImageMutation();
   const { isLoaded: isImageLoaded } = useImageOnLoad(employee.imgUrl);
 
@@ -60,17 +56,6 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
     if (onSubmit) onSubmit();
   };
 
-  const handleDeleteEmployee = async (employeeId) => {
-    try {
-      await deleteEmployee(employeeId);
-      console.log("Employee deleted successfully!");
-    } catch (err) {
-      console.error("Error deleting employee:", err);
-    }
-
-    if (onSubmit) onSubmit();
-  };
-
   return (
     <div className="mx-auto max-w-screen-xl px-4 pt-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg text-center">
@@ -79,29 +64,21 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
       </div>
 
       <form onSubmit={handleSubmit} className="mx-auto mb-0 mt-6 max-w-md ">
-        <div className="mt-2 flex flex-col items-start gap-4">
-          {isImageLoaded ? (
-            <div className="text-left relative w-20 h-20 self-center">
-              <label htmlFor="lunchImage" className="block text-sm font-medium cursor-pointer">
-                <UploadIcon className="absolute bottom-[-10px] right-[-10px]  text-indigo-700 " />
-              </label>
-              <img
-                alt="Profile Picture"
-                src={formData.imgUrl || MissingAvatarImage}
-                className="size-20 rounded-full object-cover border mx-auto"
-              />
-              <input
-                type="file"
-                id="lunchImage"
-                accept="image/*"
-                className="opacity-0 cursor-pointer"
-                encType="multipart/form-data"
-                onChange={handleImageUpload}
-              />
-            </div>
-          ) : (
-            <ImageSkeleton className="self-center" size="size-20" />
-          )}
+        <div className="mt-2 flex flex-col items-start gap-2">
+          <div className="text-left relative w-20 h-20 self-center mb-2">
+            {isImageLoaded ? (
+              <>
+                <FileInput onChange={handleImageUpload} />
+                <img
+                  alt="Profile Picture"
+                  src={formData.imgUrl || MissingAvatarImage}
+                  className="size-20 rounded-full object-cover border border-gray-400 mx-auto"
+                />
+              </>
+            ) : (
+              <ImageSkeleton className="self-center" size="size-20" />
+            )}
+          </div>
 
           <label htmlFor="username" className="block text-sm font-medium text-gray-700 text-left">
             Username
@@ -115,32 +92,15 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
             onChange={handleChange}
             required
           />
-
-          <label htmlFor="status" className="block text-sm font-medium text-gray-700 text-left">
-            Status
-          </label>
-          <select
-            id="status"
+          <Dropdown
             name="status"
-            className="w-full rounded-lg border-gray-200 h-10 px-3 py-2 text-sm shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            label="Status"
             value={formData.status}
             onChange={handleChange}
-            required
-          >
-            {employeeStatuses.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+            options={employeeStatuses}
+          />
         </div>
         <div className="flex justify-end items-center py-4 border-t gap-2 border-gray-200">
-          <Button
-            className="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 "
-            label="Delete"
-            onClick={() => handleDeleteEmployee(employee.id)}
-            isLoading={isDeleteLoading}
-          />
           <Button
             className="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5"
             type="submit"

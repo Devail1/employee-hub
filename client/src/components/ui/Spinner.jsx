@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 
 const Spinner = ({ size = "sm" }) => {
-  const baseClasses = "animate-spin fill-blue-600 text-gray-200";
+  const baseClasses = "animate-spin fill-blue-600 text-gray-400";
   const sizeClasses = {
     sm: "w-5 h-5",
     md: "w-8 h-8",
@@ -38,7 +38,7 @@ const Spinner = ({ size = "sm" }) => {
 };
 
 Spinner.propTypes = {
-  size: PropTypes.string,
+  size: PropTypes.oneOf(["sm", "md", "lg"]),
 };
 
 export default Spinner;
