@@ -28,7 +28,7 @@ module.exports = async (app, prisma) => {
         data: newEmployeeData,
       });
 
-      res.status(201).json(insertedEmployee); // Return the newly created employee
+      res.status(201).json(insertedEmployee);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
@@ -65,7 +65,7 @@ module.exports = async (app, prisma) => {
         where: { id },
       });
 
-      res.json({ message: "Employee deleted successfully" }); // No content returned
+      res.json({ message: "Employee deleted successfully" });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Internal server error" });

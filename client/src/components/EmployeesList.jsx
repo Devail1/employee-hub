@@ -15,7 +15,7 @@ const EmployeesList = () => {
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-full">
-        <Spinner size="lg" />
+        <Spinner />
       </div>
     );
 

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-hot-toast";
 import { employeeStatuses } from "@/constants";
+import { useUpdateEmployeeMutation, useUploadImageMutation } from "@/store/services/employees";
 import Button from "@/components/ui/Button";
 import MissingAvatarImage from "@/assets/images/avatar.png";
 import useImageOnLoad from "@/hooks/useImageOnLoad";
 import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
-import { useUpdateEmployeeMutation, useUploadImageMutation } from "@/store/services/employees";
 import Dropdown from "@/components/ui/Dropdown";
 import FileInput from "@/components/ui/FileInput";
 
@@ -29,7 +30,7 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
     const selectedImage = e.target.files && e.target.files[0];
 
     if (!selectedImage) {
-      console.error("Please select an image.");
+      toast.error("Please select an image.");
       return;
     }
 
@@ -37,10 +38,13 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
     formData.append("image", selectedImage);
 
     try {
-      const { data } = await uploadImage({ id: employee.id, file: formData });
-      setFormData((prevData) => ({ ...prevData, imgUrl: data.imageUrl }));
+      toast.promise(uploadImage({ id: employee.id, file: formData }).unwrap(), {
+        loading: "Uploading image...",
+        success: "Image uploaded successfully!",
+        error: (error) => `Error uploading image: ${error.data?.message || error}`,
+      });
     } catch (error) {
-      console.error("Error uploading image:", error);
+      toast.error("An unexpected error occurred. Please try again.");
     }
   };
 
@@ -48,9 +52,13 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
     e.preventDefault();
 
     try {
-      await updateEmployee({ id: employee.id, data: formData });
-    } catch (err) {
-      console.error("Error updating employee:", err);
+      toast.promise(updateEmployee({ id: employee.id, data: formData }).unwrap(), {
+        loading: "Updating employee...",
+        success: "Employee updated successfully!",
+        error: (error) => `Error updating employee: ${error.data?.message || error}`,
+      });
+    } catch (error) {
+      toast.error("An unexpected error occurred. Please try again.");
     }
 
     if (onSubmit) onSubmit();
@@ -68,7 +76,7 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
           <div className="text-left relative w-20 h-20 self-center mb-2">
             {isImageLoaded ? (
               <>
-                <FileInput onChange={handleImageUpload} />
+                <FileInput onChange={handleImageUpload} isLoading={isUploadLoading} />
                 <img
                   alt="Profile Picture"
                   src={formData.imgUrl || MissingAvatarImage}

@@ -1,25 +1,31 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-hot-toast";
 import { employeeStatuses } from "@/constants";
-import Button from "@/components/ui/Button";
 import { useCreateEmployeeMutation } from "@/store/services/employees";
+import Button from "@/components/ui/Button";
 
 const AddEmployeeForm = ({ onSubmit }) => {
   const [createEmployee, { isLoading }] = useCreateEmployeeMutation();
 
   const [username, setUsername] = useState("");
-  const [status, setStatus] = useState("working"); // Default status
+  const [status, setStatus] = useState("working");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { username, status };
+
     try {
-      await createEmployee(data);
-      console.log("Employee created successfully!");
+      toast.promise(createEmployee(data).unwrap(), {
+        loading: "Creating employee...",
+        success: "Employee created successfully!",
+        error: (error) => `Error creating employee: ${error.data?.message || error}`,
+      });
+
+      if (onSubmit) onSubmit();
     } catch (err) {
-      console.error("Error creating employee:", err);
+      toast.error("An unexpected error occurred. Please try again.");
     }
-    if (onSubmit) onSubmit();
   };
 
   return (

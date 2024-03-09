@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-hot-toast";
 import { employeeStatuses } from "@/constants";
+import { useDeleteEmployeeMutation } from "@/store/services/employees";
+import useImageOnLoad from "@/hooks/useImageOnLoad";
 import Modal from "./ui/Modal";
 import EditEmployeeForm from "./forms/EditEmployeeForm";
 import Button from "./ui/Button";
-import useImageOnLoad from "@/hooks/useImageOnLoad";
 import AvatarErrorImg from "@/assets/images/avatar.png";
 import ImageSkeleton from "./skeletons/ImageSkeleton";
 import EditIcon from "@/assets/icons/edit.svg";
 import DeleteIcon from "@/assets/icons/delete.svg";
-import { useDeleteEmployeeMutation } from "@/store/services/employees";
+
 const EmployeeCard = (employee) => {
-  const [deleteEmployee] = useDeleteEmployeeMutation();
+  const [deleteEmployee, { isLoading: isDeleting }] = useDeleteEmployeeMutation();
   const { isLoaded } = useImageOnLoad(employee.imgUrl);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -20,10 +22,13 @@ const EmployeeCard = (employee) => {
 
   const handleDelete = async (employeeId) => {
     try {
-      await deleteEmployee(employeeId);
-      console.log("Employee deleted successfully!");
+      toast.promise(deleteEmployee(employeeId).unwrap(), {
+        loading: "Deleting employee...",
+        success: "Employee deleted successfully!",
+        error: "Error deleting employee",
+      });
     } catch (err) {
-      console.error("Error deleting employee:", err);
+      toast.error("An unexpected error occurred. Please try again.");
     }
 
     closeModal();
@@ -72,6 +77,7 @@ const EmployeeCard = (employee) => {
               iconSrc={DeleteIcon}
               iconAlt="Delete Employee"
               title="Delete"
+              isLoading={isDeleting}
             />
           </span>
         </div>

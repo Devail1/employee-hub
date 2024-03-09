@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Spinner from "./Spinner";
 import clsx from "clsx";
 
 const Button = ({
@@ -30,7 +29,6 @@ const Button = ({
       {...rest}
     >
       <div className="flex items-center gap-2 relative w-full">
-        {isLoading && <Spinner />}
         {label && (
           <span className="font-medium transition-colors group-hover:text-white whitespace-nowrap">
             {label}

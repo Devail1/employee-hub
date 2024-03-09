@@ -3,7 +3,7 @@ import UploadIcon from "@/assets/icons/upload.svg";
 import Button from "./Button";
 import PropTypes from "prop-types";
 
-function FileInput({ onChange }) {
+function FileInput({ onChange, isLoading }) {
   return (
     <div className="absolute h-full w-full">
       <Button
@@ -12,6 +12,7 @@ function FileInput({ onChange }) {
         title="Upload"
         iconSrc={UploadIcon}
         iconSize="md"
+        isLoading={isLoading}
       >
         <label
           htmlFor="lunchImage"
@@ -33,6 +34,7 @@ function FileInput({ onChange }) {
 
 FileInput.propTypes = {
   onChange: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 export default FileInput;
