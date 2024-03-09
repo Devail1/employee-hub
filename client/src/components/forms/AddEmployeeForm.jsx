@@ -26,7 +26,7 @@ const AddEmployeeForm = ({ onSubmit }) => {
     <div className="mx-auto max-w-screen-xl px-4 pt-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg text-center">
         <h1 className="text-2xl font-bold sm:text-3xl">Add Employee</h1>
-        <p className="mt-4 text-gray-500">Add a new employee to the system</p>
+        <p className="mt-4 text-gray-600">Add a new employee to the system</p>
       </div>
 
       <form onSubmit={handleSubmit} className="mx-auto mb-0 mt-6 max-w-md space-y-2">

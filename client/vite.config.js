@@ -10,6 +10,7 @@ export default defineConfig(() => {
     resolve: {
       alias: [{ find: "@", replacement: "/src" }],
     },
+    envDir: "../",
     server: {
       port: 3000,
       proxy: {

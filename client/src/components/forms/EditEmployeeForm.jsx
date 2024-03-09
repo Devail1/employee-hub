@@ -60,7 +60,7 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
     <div className="mx-auto max-w-screen-xl px-4 pt-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg text-center">
         <h1 className="text-2xl font-bold sm:text-3xl">Edit Employee</h1>
-        <p className="mt-4 text-gray-500">Edit an employee or remove it from the list</p>
+        <p className="mt-4 text-gray-600">Edit an employee or remove it from the list</p>
       </div>
 
       <form onSubmit={handleSubmit} className="mx-auto mb-0 mt-6 max-w-md ">
@@ -86,6 +86,7 @@ const EditEmployeeForm = ({ onSubmit, initialValues: employee }) => {
           <input
             type="text"
             id="username"
+            name="username"
             className="w-full rounded-lg  border-gray-200 px-3 py-2 text-sm shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter username"
             value={formData.username}

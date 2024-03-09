@@ -36,7 +36,7 @@ const EmployeeCard = (employee) => {
           <EditEmployeeForm onSubmit={closeModal} initialValues={employee} />
         </Modal>
       )}
-      <article className="rounded-xl border border-gray-700 bg-white shadow-md  p-4">
+      <article className="rounded-xl  bg-white shadow-md  p-4">
         <div className="flex items-center gap-4">
           {isLoaded ? (
             <img
