@@ -41,7 +41,7 @@ Copy the `.env` file into the project's root directory.
 
 ### Running in development
 
-To run the project in development environment, use the following command:
+To run the project in development mode, use the following command:
 
 ```bash
 pnpm run dev
@@ -51,7 +51,7 @@ pnpm run dev
 
 ### Running in production
 
-In order to run the project in production environment, we will first need to build the client side application:
+In order to run the project in production mode, we first need to build the client side application:
 
 ```bash
 cd client
