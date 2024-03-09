@@ -31,7 +31,9 @@ export const useScrollLock = (options = {}) => {
       target.current.style.overflow = "hidden";
 
       // Fix iOS bug: Prevent auto scroll on keyboard lunch
-      if (isIOS()) target.current.style.position = "fixed";
+      if (isIOS()) {
+        target.current.style.position = "fixed";
+      }
 
       setIsLocked(true);
     }
@@ -40,8 +42,9 @@ export const useScrollLock = (options = {}) => {
   const unlock = () => {
     if (target.current && originalStyle.current) {
       target.current.style.overflow = originalStyle.current.overflow;
-      if (isIOS()) target.current.style.position = "unset";
-
+      if (isIOS()) {
+        target.current.style.position = "unset";
+      }
       if (widthReflow) {
         target.current.style.paddingRight = originalStyle.current.paddingRight;
       }
