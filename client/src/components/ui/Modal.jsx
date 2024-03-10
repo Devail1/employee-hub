@@ -1,6 +1,6 @@
 import React from "react";
-import { useScrollLock } from "@/hooks/useScrollLock";
 import PropTypes from "prop-types";
+import { useScrollLock } from "@/hooks/useScrollLock";
 import Button from "./Button";
 
 const Modal = ({ children, onClose }) => {

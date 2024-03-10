@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useScrollLock } from "@/hooks/useScrollLock";
 import Button from "./Button";
 
 const Alert = ({ title, message, onConfirm, onCancel }) => {
+  useScrollLock();
   return (
     <div className="fixed inset-0 z-10 bg-gray-500 bg-opacity-75  transition-opacity">
-      <div className="flex h-full items-center justify-center ">
-        <div className="w-full max-w-sm overflow-hidden rounded-lg bg-neutral-50 p-4 shadow-2xl">
-          <div className="relative">
+      <div className="flex h-full items-center justify-center p-4">
+        <div className="w-full max-w-sm overflow-hidden rounded-lg bg-neutral-50 shadow-2xl">
+          <div className="relative px-4 py-6 lg:p-6">
             <h2 className="text-lg font-bold">{title}</h2>
             <p className="mt-2 text-sm text-gray-600">{message}</p>
             <div className="mt-4 flex gap-2">
