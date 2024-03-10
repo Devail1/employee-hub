@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "pnpm install --frozen-lockfile; cd client; pnpm i; pnpm run build; cd ..; node index.js",
   "builds": [
     {
       "src": "index.js",
