@@ -53,14 +53,12 @@ const EmployeeCard = (employee) => {
         </Modal>
       )}
       {showDeleteAlert && (
-        <Modal onClose={closeModal}>
-          <Alert
-            title="Are you sure you want to delete this profile?"
-            message="This action cannot be undone."
-            onConfirm={() => handleAlertConfirm(employee.id)}
-            onCancel={closeModal}
-          />
-        </Modal>
+        <Alert
+          title="Are you sure you want to delete this profile?"
+          message="This action cannot be undone."
+          onConfirm={() => handleAlertConfirm(employee.id)}
+          onCancel={() => setShowDeleteAlert(false)}
+        />
       )}
       <article className="rounded-xl  bg-white p-4  shadow-md">
         <div className="flex items-center gap-4">

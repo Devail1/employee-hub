@@ -7,7 +7,7 @@ const Modal = ({ children, onClose }) => {
   useScrollLock();
   return (
     <div className="fixed inset-0 z-10 bg-gray-500 bg-opacity-75 transition-opacity">
-      <div className="flex h-full items-center justify-center px-4 py-4">
+      <div className="flex h-full items-center justify-center p-4">
         <div className="w-full max-w-sm overflow-hidden rounded-lg bg-neutral-50 shadow-2xl">
           <div className="relative">
             <Button
