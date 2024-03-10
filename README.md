@@ -70,5 +70,5 @@ Start the node server:
 ```bash
 pnpm run start
 
-# Access the project at http://localhost:3000 in your web browser.
+# Access the project at http://localhost:5000 in your web browser.
 ```
